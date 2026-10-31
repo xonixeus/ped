@@ -1,32 +1,43 @@
-# Production & Engineering Agents
+# Product & Engineering Department
 
-Reusable AI agent profiles for the Production & Engineering Department, with clear responsibilities, explicit boundaries, and project-specific memory.
+A department of AI agents that designs, builds and documents software products, run on [Multica](https://github.com/multica-ai/multica). It has a project manager and five specialists, each with clear responsibilities and explicit boundaries.
 
-The collection currently includes five specialists: **Beck** for back-end development, **Faye** for front-end development, **Uma** for UX/UI design, **Sophie** for internal technical writing, and **Paige** for product technical writing. Together, they support the department’s design, development, and documentation work.
+This repository is universal: it holds no product's code or data, and anyone may deploy it for their own products.
 
 ## Meet the Agents
 
 | Agent      | Role                      | Focus                                                                                                                                                                               |
 | ---------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Woz**    | Project Manager           | Intake, planning, assignments, coordination, acceptance of the department's work, and reports to the owner                                                                          |
+| **Uma**    | UX/UI Designer            | User journeys, information architecture, wireframes, prototypes, interface copy, design-system guidance, and usability reviews                                                      |
 | **Beck**   | Back-end Developer        | APIs, business logic, database schemas and migrations, service integrations, server-side authorization, and developer tests                                                         |
 | **Faye**   | Front-end Developer       | User interfaces, responsive layouts, accessibility implementation, client-side state, API integration, and developer tests                                                          |
-| **Uma**    | UX/UI Agent               | User journeys, information architecture, wireframes, prototypes, interface copy, design-system guidance, and usability reviews                                                      |
 | **Sophie** | Internal Technical Writer | Internal system references, employee onboarding, standard operating procedures (SOPs), operational and troubleshooting guides for an internal knowledge platform such as Confluence |
 | **Paige**  | Product Technical Writer  | Help-center and knowledge-base articles, user manuals, tutorials, release notes, reseller and partner playbooks, and developer-portal documentation                                 |
 
-Each agent follows the project’s existing conventions, asks when a consequential decision is unresolved, and hands off work outside its responsibilities.
+## Repository Layout
 
-## Getting Started
+| Path                     | Contents                                                                                                       |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `TEAM.md`                | The shared operating charter: roles, decision rights, workflow and handoffs, Git rules, and rules for every agent |
+| `agents/<name>/AGENTS.md` | Each agent's role-specific instructions                                                                         |
 
-1. Select the agent whose responsibilities match your task.
-2. Load its Markdown profile into your AI environment using the environment’s supported agent configuration or instruction-loading mechanism.
-3. Provide project context, relevant files, requirements, and acceptance criteria.
-4. Configure the tools and permissions needed for the assignment.
-5. Review the deliverables, verification evidence, and unresolved dependencies before integrating the work.
+Every rule that applies to more than one agent is in `TEAM.md`, stated once. Each `AGENTS.md` holds only what is specific to that role.
 
-Support for configuration fields varies by environment. Verify how your runner handles the frontmatter, particularly `allowed_handoffs`. Automatic delegation requires support from the environment running the agents.
+## Deploying on Multica
+
+1. **Runtime.** Run the agents on a Multica runtime that supports the `multica` CLI inside tasks and per-agent environment variables (Claude Code works).
+2. **Agents.** Create the six agents and paste the **entire** contents of each `agents/<name>/AGENTS.md` into its Instructions field. Each file tells its agent to read `TEAM.md` first, so the charter does not need to be pasted. When `TEAM.md` or an `AGENTS.md` changes, update the matching Instructions fields.
+3. **Project.** For each product, create a project and link two repositories as resources: this repository and the product repository.
+4. **Credentials.** Every agent needs read access to both repositories. Agents that change the product need a credential that can push branches and open pull requests on the product repository; protect its default branch so only the owner merges. Only Woz gets write access to this repository.
+5. **`PED.md`.** Ask Woz to propose a `PED.md` for the product repository: the owner, documentation destinations, required checks, environments and any delegations. The department works on the product once the owner approves it.
+6. **Check.** Give each agent a read-only issue in the product's project asking it to quote one line from `TEAM.md`, its own `AGENTS.md` and the product's `README`, and to state in two sentences what its role does and must never do.
 
 ## Example Assignments
+
+### Uma — UX/UI Design
+
+> Design the project-members management flow using our existing design system. Define relevant interaction states, identify unresolved product decisions, and provide an implementation handoff for Faye and Beck.
 
 ### Beck — Back-end Development
 
@@ -36,10 +47,6 @@ Support for configuration fields varies by environment. Verify how your runner h
 
 > Implement the project-members screen from Uma’s approved design using the documented API. Include loading, empty, error, and success states, verify keyboard behavior, and report the checks performed.
 
-### Uma — UX/UI Design
-
-> Design the project-members management flow using our existing design system. Define relevant interaction states, identify unresolved product decisions, and provide an implementation handoff for Faye and Beck.
-
 ### Sophie — Internal Technical Writing
 
 > Write an SOP for rotating the project-members service credentials, based on Beck’s implementation notes. Identify who performs each step, the prerequisites, expected results, and escalation path, and flag any steps the system owner still needs to verify.
@@ -48,73 +55,33 @@ Support for configuration fields varies by environment. Verify how your runner h
 
 > Write a help-center article and release note for the new project-members feature. Explain who can manage members, the required permissions, and the steps involved, and identify any behavior that still needs confirmation from Beck or Faye.
 
-## Working Together
-
-For a feature involving all five roles:
-
-1. **Uma** defines the experience and communicates the intended behavior.
-2. **Beck and Faye** agree on the API contract and implementation dependencies.
-3. **Beck** implements the supporting services and data behavior.
-4. **Faye** implements the interface and integrates it with those services.
-5. **Uma** reviews the implemented experience, while Beck and Faye verify their changes and address findings within their scope.
-6. **Sophie** documents internal operation of the feature—system references, SOPs, and onboarding notes—verified with Beck and Faye.
-7. **Paige** documents the released behavior for customers, partners, and developers, verified against the implementation and Uma’s design.
-
-Work can proceed in parallel when ownership and shared contracts are clear. If delegation is unavailable, the agent asks the user or coordinator how to proceed.
-
-Each profile lists its intended handoff partners in `allowed_handoffs`:
-
-| Agent  | Hands off to             |
-| ------ | ------------------------ |
-| Beck   | Faye, Uma, Sophie, Paige |
-| Faye   | Beck, Uma, Sophie, Paige |
-| Uma    | Faye, Beck, Paige        |
-| Sophie | Faye, Beck, Paige        |
-| Paige  | Faye, Beck, Uma, Sophie  |
-
-A useful handoff includes:
-
-- The action or decision needed.
-- The reason it is needed.
-- Relevant requirements, evidence, and constraints.
-- Unresolved questions and dependencies.
-- What has already been completed or verified.
+For a feature that needs several roles, give the request to **Woz**, who plans it, assigns each part and coordinates the handoffs (`TEAM.md` §7).
 
 ## Profile Structure
 
-Each profile follows a shared structure:
+Each specialist profile follows a shared structure:
 
-| Section                     | Purpose                                                 |
-| --------------------------- | ------------------------------------------------------- |
-| Frontmatter                 | Agent identity, description, and configuration metadata |
-| Who Are You                 | The role’s purpose                                      |
-| What You Do                 | Responsibilities the agent owns                         |
-| Rules                       | Scope boundaries and actions to avoid                   |
-| What Good Output Looks Like | Expectations for deliverables and verification          |
+| Section                     | Purpose                                        |
+| --------------------------- | ---------------------------------------------- |
+| Frontmatter                 | Agent name, description, version and author    |
+| Who Are You                 | The role’s purpose                             |
+| What You Do                 | Responsibilities the agent owns                |
+| Rules                       | Role-specific boundaries and actions to avoid  |
+| What Good Output Looks Like | Expectations for deliverables and verification |
 
 ## Scope and Quality
 
-The current collection covers design, development, and documentation. Dedicated QA, security-review, operations, and release-management profiles are not yet included.
+The department covers design, development, documentation and project management. It has no dedicated QA, security-review, operations or release-management role; until it does, the owner holds those approvals. Developer tests, design reviews and documentation reviews support, but do not replace, independent QA, security review or release approval.
 
-Each agent is expected to:
-
-- Stay within its assigned responsibilities.
-- Preserve existing project conventions and other agents’ work.
-- Identify mocks, unresolved dependencies, and verification limitations.
-- Report checks as passed only when they were actually run and passed.
-- Provide evidence and context for the next person or agent.
-
-Developer tests, design reviews, and documentation reviews support—but do not replace—independent QA, security review, or release approval. The writers document verified behavior; they do not claim technical, security, legal, or release approval on behalf of other roles.
-
-Role instructions guide behavior. Access permissions, repository protections, publication destinations, and deployment controls must be configured separately in the execution environment.
+Role instructions guide behavior. Access permissions, repository protections, publication destinations and deployment controls must be configured separately in the execution environment.
 
 ## Contributing
 
-Contributions should preserve the shared profile structure and keep responsibilities clear.
+Changes to this repository are rare: they record a change to the team or to the flow of work or information. Keep them general; never add anything specific to one product or owner.
 
-- Define explicit ownership and practical handoff boundaries.
+- Preserve the shared profile structure and keep responsibilities clear.
+- State a rule once: in `TEAM.md` if it applies to more than one agent, otherwise in that agent's `AGENTS.md`.
+- Define explicit ownership and practical handoff boundaries, and avoid unnecessary overlap between roles.
 - Describe observable expectations for quality.
-- Avoid unnecessary overlap between roles.
-- Keep general instructions independent of specific application frameworks.
-- Distinguish runtime-supported settings from descriptive metadata.
+- Keep instructions independent of specific application frameworks.
 - Base new rules on demonstrated needs and practical experience.
