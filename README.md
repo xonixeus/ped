@@ -8,7 +8,7 @@ This repository is universal: it holds no product's code or data, and anyone may
 
 | Agent      | Role                      | Focus                                                                                                                                                                               |
 | ---------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Woz**    | Project Manager           | Intake, planning, assignments, coordination, acceptance of the department's work, and reports to the owner                                                                          |
+| **Woz**    | Project Manager           | Intake, planning, assignments, coordination, acceptance and integration of the department's work, version tags, and reports to the owner                                            |
 | **Uma**    | UX/UI Designer            | User journeys, information architecture, wireframes, prototypes, interface copy, design-system guidance, and usability reviews                                                      |
 | **Beck**   | Back-end Developer        | APIs, business logic, database schemas and migrations, service integrations, server-side authorization, and developer tests                                                         |
 | **Faye**   | Front-end Developer       | User interfaces, responsive layouts, accessibility implementation, client-side state, API integration, and developer tests                                                          |
@@ -29,8 +29,8 @@ Every rule that applies to more than one agent is in `TEAM.md`, stated once. Eac
 1. **Runtime.** Run the agents on a Multica runtime that supports the `multica` CLI inside tasks and per-agent environment variables (Claude Code works).
 2. **Agents.** Create the six agents and paste the **entire** contents of each `agents/<name>/AGENTS.md` into its Instructions field. Each file tells its agent to read `TEAM.md` first, so the charter does not need to be pasted. When `TEAM.md` or an `AGENTS.md` changes, update the matching Instructions fields.
 3. **Project.** For each product, create a project and link two repositories as resources: this repository and the product repository.
-4. **Credentials.** Every agent needs read access to both repositories. Agents that change the product need a credential that can push branches and open pull requests on the product repository; protect its default branch so only the owner merges. Only Woz gets write access to this repository.
-5. **`PED.md`.** Ask Woz to propose a `PED.md` for the product repository: the owner, documentation destinations, required checks, environments and any delegations. The department works on the product once the owner approves it.
+4. **Credentials.** Every agent needs read access to both repositories. Only Woz gets write access, to the product repositories and to this repository; give it in Woz's agent environment only. Specialists hand their changes to Woz as patches (`TEAM.md` §6).
+5. **`PED.md`.** Ask Woz to propose a `PED.md` for the product repository: the owner, documentation destinations, required checks, environments and the release procedure. The department works on the product once the owner approves it.
 6. **Check.** Give each agent a read-only issue in the product's project asking it to quote one line from `TEAM.md`, its own `AGENTS.md` and the product's `README`, and to state in two sentences what its role does and must never do.
 
 ## Example Assignments
