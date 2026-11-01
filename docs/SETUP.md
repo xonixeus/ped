@@ -24,7 +24,7 @@ Otherwise every agent inherits the claude.ai connectors of the subscription's ow
 
 or set the environment variable `ENABLE_CLAUDEAI_MCP_SERVERS=false` for the runtime.
 
-**Check:** an issue asking any agent to list its MCP tools returns none apart from those attached to it in Multica (A6).
+**Check:** an issue asking any agent to list its MCP tools returns none apart from those attached to it in Multica (A7).
 
 ### A3. Commit attribution (optional)
 
@@ -179,7 +179,7 @@ Create an issue in the project, assigned to Woz, asking it to propose `product:P
 The product must make these possible, and `PED.md` records how:
 
 - **Required checks that run the way CI runs them.** For example, if CI installs and tests a sub-package on its own, the required check does the same, so a change that passes locally also passes in CI.
-- **A throwaway test database per task.** Each task starts its own database and discards it; no task shares a database. For example, install the PostgreSQL server binaries with no default cluster, and have each task run `initdb` into its workspace and `pg_ctl` on a random local port.
+- **A throwaway test database per task.** Each task starts its own database and discards it; no task shares a database. For example, install the PostgreSQL server binaries with no default cluster (on Debian or Ubuntu, write `create_main_cluster = false` to `/etc/postgresql-common/createcluster.conf` before installing the server package, so no shared server is created and nothing listens on the default port), and have each task run `initdb` into its workspace and `pg_ctl` on a random local port.
 - **Dev servers configurable per task.** Ports and the API address can be set per task, so concurrent browser checks do not reach each other's servers.
 
 **Check:** `PED.md` is in the product repository's default branch, committed by Woz after your approval on the issue.
