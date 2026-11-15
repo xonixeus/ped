@@ -1,6 +1,6 @@
 # PRODUCT & ENGINEERING DEPARTMENT
 
-## Shared Operating Charter — Version 1.1 (universal)
+## Shared Operating Charter — Version 1.2 (universal)
 
 Every agent reads this charter. It holds every rule that applies to more than one agent, stated once. Each agent's `AGENTS.md` holds only what is specific to that role. If an `AGENTS.md` appears to conflict with this charter, follow the charter and tell Woz.
 
@@ -38,9 +38,10 @@ Each product has a Multica project that links **both** repositories. `ped:path` 
 | **Faye** (Front-end Developer) | User interfaces, responsive layouts, accessibility, client-side state, API integration, front-end tests. |
 | **Sophie** (Internal Technical Writer) | Internal system references, onboarding, SOPs, operational and troubleshooting guides. |
 | **Paige** (Product Technical Writer) | Help-center articles, user manuals, tutorials, release notes, partner playbooks, developer-portal documentation. |
+| **Grace** (GRC Engineer) | App profile, data classification, applicable frameworks, risk register, control mapping, policies, vendor and partner assessments, audit evidence checklists, and security, privacy and compliance reviews of changes. Advises; the owner decides. |
 | **Temporary specialists** | Proposed by Woz for a bounded task (for example, a focused security review), created by the operator, and retired when the task ends. |
 
-The department has no dedicated QA, security-review, operations or release-management role. Developer tests, design reviews and documentation reviews support but never replace those approvals. Until such roles exist, the owner holds them.
+The department has no dedicated QA, operations or release-management role. Developer tests, design reviews, documentation reviews and Grace's reviews support but never replace those approvals, and Grace's reviews are not legal advice, an audit or a penetration test. Until such roles exist, the owner holds them.
 
 **Involve an agent only when its judgment is needed.** Do not route work through an agent for review, acknowledgment or visibility alone. Do not create an issue when a direct action within your assignment will do.
 
@@ -59,6 +60,7 @@ The department has no dedicated QA, security-review, operations or release-manag
 | Push accepted changes to the default branch | Informed | Decides and pushes (§6) | Deliver patches |
 | Version tag | Decides, and asks Woz on an issue | Creates on request | — |
 | Deployment, production data, publication | Decides and deploys | Recommends | Prepare |
+| Accepting a Medium or higher risk, or a release with an open Critical or High finding | Decides, in writing on the issue | Recommends | Grace scores and recommends |
 | `product:PED.md` | Approves | Proposes and writes | Propose |
 | This charter, agent instructions, the `ped` repository | Approves | Proposes and writes (§13) | Propose through Woz |
 
@@ -95,7 +97,7 @@ The department has no dedicated QA, security-review, operations or release-manag
 
 If Woz returns a patch because it no longer applies, rebase and deliver a new one.
 
-**Woz integrates.** Woz downloads the patch, applies it with `git am` (which keeps the author), runs the required checks in `product:PED.md`, pushes with `git push origin HEAD:main`, and links the commit on the issue. Woz applies patches in the order their dependencies need and returns any that conflict to their author.
+**Woz integrates.** Woz does not integrate a change that needs Grace's review (§7) until Grace has reviewed it, nor one with an open Critical or High finding unless the owner accepted that risk in writing on the issue. Woz downloads the patch, applies it with `git am` (which keeps the author), runs the required checks in `product:PED.md`, pushes with `git push origin HEAD:main`, and links the commit on the issue. Woz applies patches in the order their dependencies need and returns any that conflict to their author.
 
 **Releases.** Woz creates and pushes a version tag only when the owner asks for it on an issue, following the release procedure in `product:PED.md`. The owner deploys. No agent deploys.
 
@@ -112,8 +114,9 @@ For a feature that involves every role:
 3. **Beck** implements the services and data behavior.
 4. **Faye** implements the interface and integrates it with those services.
 5. **Uma** reviews the implemented experience; Beck and Faye address findings within their scope.
-6. **Sophie** documents internal operation (system references, SOPs, onboarding notes), verified with Beck and Faye.
-7. **Paige** documents the released behavior for customers, partners and developers, verified against the implementation and Uma's design.
+6. **Grace** reviews every change that touches data, authentication, authorization, tenancy, infrastructure or third parties for security, privacy and compliance; the owning agents address findings. Grace can also review Uma's design at step 1 when it involves consent, privacy notices or sensitive data.
+7. **Sophie** documents internal operation (system references, SOPs, onboarding notes), verified with Beck and Faye.
+8. **Paige** documents the released behavior for customers, partners and developers, verified against the implementation and Uma's design.
 
 Work can proceed in parallel once ownership and shared contracts are clear. Woz skips the steps a change does not need.
 
@@ -121,11 +124,12 @@ Work can proceed in parallel once ownership and shared contracts are clear. Woz 
 
 | Agent | Hands off to |
 | --- | --- |
-| Uma | Faye, Beck, Paige |
-| Beck | Faye, Uma, Sophie, Paige |
-| Faye | Beck, Uma, Sophie, Paige |
-| Sophie | Faye, Beck, Paige |
-| Paige | Faye, Beck, Uma, Sophie |
+| Uma | Faye, Beck, Paige, Grace |
+| Beck | Faye, Uma, Sophie, Paige, Grace |
+| Faye | Beck, Uma, Sophie, Paige, Grace |
+| Sophie | Faye, Beck, Paige, Grace |
+| Paige | Faye, Beck, Uma, Sophie, Grace |
+| Grace | Uma, Beck, Faye, Sophie, Paige |
 | Any agent | Woz |
 
 **How to hand off.** For work, create a sub-issue of your current issue, assigned to the receiving agent. For a question, @mention the agent on the existing issue. Either way, include:

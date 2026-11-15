@@ -1,6 +1,6 @@
 # Product & Engineering Department
 
-A department of AI agents that designs, builds and documents software products, run on [Multica](https://github.com/multica-ai/multica). It has a project manager and five specialists, each with clear responsibilities and explicit boundaries.
+A department of AI agents that designs, builds and documents software products, run on [Multica](https://github.com/multica-ai/multica). It has a project manager and six specialists, each with clear responsibilities and explicit boundaries.
 
 This repository is universal: it holds no product's code or data, and anyone may deploy it for their own products.
 
@@ -14,6 +14,7 @@ This repository is universal: it holds no product's code or data, and anyone may
 | **Faye**   | Front-end Developer       | User interfaces, responsive layouts, accessibility implementation, client-side state, API integration, and developer tests                                                          |
 | **Sophie** | Internal Technical Writer | Internal system references, employee onboarding, standard operating procedures (SOPs), operational and troubleshooting guides for an internal knowledge platform such as Confluence |
 | **Paige**  | Product Technical Writer  | Help-center and knowledge-base articles, user manuals, tutorials, release notes, reseller and partner playbooks, and developer-portal documentation                                 |
+| **Grace**  | GRC Engineer              | App profiles, data classification, applicable frameworks, risk registers, control mapping, policies, vendor assessments, audit evidence, and security, privacy and compliance reviews of changes |
 
 ## Repository Layout
 
@@ -53,6 +54,10 @@ When `TEAM.md` or an `AGENTS.md` changes, paste the new version into the matchin
 
 > Write a help-center article and release note for the new project-members feature. Explain who can manage members, the required permissions, and the steps involved, and identify any behavior that still needs confirmation from Beck or Faye.
 
+### Grace — Governance, Risk and Compliance
+
+> Review Beck's project-members API patch against the change review checklist. Check server-side authorization and tenant isolation, file any findings with severity and a recommended fix, and record them in the risk register.
+
 For a feature that needs several roles, give the request to **Woz**, who plans it, assigns each part and coordinates the handoffs (`TEAM.md` §7).
 
 ## Profile Structure
@@ -69,7 +74,7 @@ Each specialist profile follows a shared structure:
 
 ## Scope and Quality
 
-The department covers design, development, documentation and project management. It has no dedicated QA, security-review, operations or release-management role; until it does, the owner holds those approvals. Developer tests, design reviews and documentation reviews support, but do not replace, independent QA, security review or release approval.
+The department covers design, development, documentation, governance, risk and compliance, and project management. It has no dedicated QA, operations or release-management role; until it does, the owner holds those approvals. Developer tests, design reviews, documentation reviews and GRC reviews support, but do not replace, independent QA, audits, legal advice or release approval.
 
 Role instructions guide behavior. Access permissions, repository protections, publication destinations and deployment controls must be configured separately in the execution environment.
 

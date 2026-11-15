@@ -34,7 +34,7 @@ The runtime may add its own trailers to commit messages. To keep commits attribu
 
 ### A4. Agents
 
-Create the six agents and paste the **entire** contents of each file into its Instructions field:
+Create the seven agents and paste the **entire** contents of each file into its Instructions field:
 
 | Agent | Instructions file | Write credential | Browser |
 | --- | --- | --- | --- |
@@ -44,8 +44,9 @@ Create the six agents and paste the **entire** contents of each file into its In
 | Faye | `agents/faye/AGENTS.md` | No | Yes |
 | Sophie | `agents/sophie/AGENTS.md` | No | No |
 | Paige | `agents/paige/AGENTS.md` | No | Yes |
+| Grace | `agents/grace/AGENTS.md` | No | No |
 
-Each file tells its agent to read `TEAM.md` from `ped` first, so the charter does not need to be pasted. When `TEAM.md` or an `AGENTS.md` changes, paste the new version into the matching Instructions fields.
+Each file tells its agent to read `TEAM.md` from `ped` first, so the charter does not need to be pasted. Attach Grace's domain skills (for example, one for financial apps) to Grace as skills when they exist; they hold anything specific to an industry. When `TEAM.md` or an `AGENTS.md` changes, paste the new version into the matching Instructions fields.
 
 **Check:** each agent's Instructions field starts with that file's frontmatter.
 
